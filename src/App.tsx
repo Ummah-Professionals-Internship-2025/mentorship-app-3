@@ -1,4 +1,4 @@
-import { use, useState } from "react";
+import { useState } from "react";
 import Alert from "./components/Alert";
 import Button from "./components/Button";
 import SearchBar from "./components/SearchBar";
@@ -32,11 +32,7 @@ function App() {
       </div>
 
       <div>
-        <ListGroup
-          items={filteredItems}
-          heading="Cities"
-          onSelectItem={handleSelectItem}
-        />
+        <ListGroup items={filteredItems} onSelectItem={handleSelectItem} />
       </div>
 
       <br />
@@ -44,10 +40,12 @@ function App() {
 
       <div>
         {alertVisible && (
-          <Alert onClose={() => setAlertVisibility(false)}>My Alert</Alert>
+          <Alert onClose={() => setAlertVisibility(false)}>
+            Safe Travels :D{" "}
+          </Alert>
         )}
-        <Button color="secondary" onClick={() => setAlertVisibility(true)}>
-          My Button
+        <Button color="danger" onClick={() => setAlertVisibility(true)}>
+          Click me!
         </Button>
       </div>
     </div>
