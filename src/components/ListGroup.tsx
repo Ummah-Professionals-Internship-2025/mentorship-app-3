@@ -1,37 +1,71 @@
 import { useState } from "react";
+import EditableItem from "./EditableItem"; // Make sure the path is correct
 
-// { items: [], heading: string}
 interface Props {
   items: string[];
   heading: string;
   onSelectItem: (item: string) => void;
+  onDeleteItem: (index: number) => void;
+  onEditItem: (index: number, newValue: string) => void; // New prop
 }
-function ListGroup({ items, heading, onSelectItem }: Props) {
-  //let selectedIndex = 0; // -1 means no item is selected & 0 means the first item is selected
-  //Hook is a function that allows us to tap into built-in React features
-  // useState is a Hook that lets you add React state to function components
 
+function ListGroup({
+  items,
+  heading,
+  onSelectItem,
+  onDeleteItem,
+  onEditItem,
+}: Props) {
   const [selectedIndex, setSelectedIndex] = useState(-1);
+  const [editIndex, setEditIndex] = useState<number | null>(null); // Track editing row
 
   return (
     <>
-      <h1>{heading}List</h1>
+      <h1>{heading} List</h1>
       {items.length === 0 && <p>No item found</p>}
       <ul className="list-group">
         {items.map((item, index) => (
           <li
             className={
               selectedIndex === index
-                ? "list-group-item active"
-                : "list-group-item"
+                ? "list-group-item active d-flex justify-content-between align-items-center"
+                : "list-group-item d-flex justify-content-between align-items-center"
             }
-            key={item}
-            onClick={() => {
-              setSelectedIndex(index);
-              onSelectItem(item);
-            }}
+            key={index}
           >
-            {item}
+            {editIndex === index ? (
+              <EditableItem
+                value={item}
+                onChange={(newValue) => onEditItem(index, newValue)}
+                onDone={() => setEditIndex(null)}
+              />
+            ) : (
+              <>
+                <span
+                  onClick={() => {
+                    setSelectedIndex(index);
+                    onSelectItem(item);
+                  }}
+                  style={{ cursor: "pointer", flexGrow: 1 }}
+                >
+                  {item}
+                </span>
+                <div>
+                  <button
+                    className="btn btn-sm btn-warning me-2"
+                    onClick={() => setEditIndex(index)}
+                  >
+                    Edit
+                  </button>
+                  <button
+                    className="btn btn-sm btn-danger"
+                    onClick={() => onDeleteItem(index)}
+                  >
+                    Delete
+                  </button>
+                </div>
+              </>
+            )}
           </li>
         ))}
       </ul>
