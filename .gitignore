@@ -13,6 +13,21 @@ dist-ssr
 build
 *.local
 
+#Build outputs 
+*.out
+*.min.js
+*.map
+coverage/
+coverage-final.json
+
+#Python virtual environments
+.venv/
+
+# SQLite database files
+*.sqlite3
+*.db
+*.sqlite
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
