@@ -7,7 +7,7 @@ class Meeting(models.Model):
     name = models.CharField(max_length=255,default="Default Name" )
     description = models.TextField()
     created_at = models.DateTimeField(default=timezone.now)
-    def str(self):
+    def __str__(self):
         return self.name
 
 
@@ -18,7 +18,7 @@ class TimeOption(models.Model):
     end_time = models.DateTimeField(null=True, blank=True)
     created_at = models.DateTimeField(default=timezone.now)
 
-    def str(self):
+    def __str__(self):
         return f"{self.start_time} - {self.end_time or 'TBD'}"
 
 
@@ -28,7 +28,7 @@ class AvailabilityResponse(models.Model):
     participant_name = models.CharField(max_length=255)
     created_at = models.DateTimeField(default=timezone.now)
 
-    def str(self):
+    def __str__(self):
         return f"{self.participant_name} - {self.meeting.name}"
 
 
@@ -38,7 +38,7 @@ class AvailabilityEntry(models.Model):
     time_option = models.ForeignKey(TimeOption, related_name='entries', on_delete=models.CASCADE)
     
 
-    def str(self):
+    def __str__(self):
         return f"{self.availability_response.participant_name} - {self.time_option.start_time}"
 
     
