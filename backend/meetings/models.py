@@ -12,7 +12,7 @@ class Meeting(models.Model):
 
 
 class TimeOption(models.Model):
-    id = models.AutoField(primary_key=True,default=uuid.uuid4, editable=False)
+    id = models.AutoField(primary_key=True)
     meeting = models.ForeignKey(Meeting, related_name='time_options', on_delete=models.CASCADE)
     start_time = models.DateTimeField()
     end_time = models.DateTimeField(null=True, blank=True)
@@ -23,7 +23,7 @@ class TimeOption(models.Model):
 
 
 class AvailabilityResponse(models.Model):
-    id = models.AutoField(primary_key=True, default=uuid.uuid4, editable=False)
+    id = models.AutoField(primary_key=True)
     meeting = models.ForeignKey(Meeting, related_name='availability_responses', on_delete=models.CASCADE)
     participant_name = models.CharField(max_length=255)
     created_at = models.DateTimeField(default=timezone.now)
@@ -33,7 +33,7 @@ class AvailabilityResponse(models.Model):
 
 
 class AvailabilityEntry(models.Model):
-    id = models.AutoField(primary_key=True, default=uuid.uuid4, editable=False)
+    id = models.AutoField(primary_key=True)
     availability_response = models.ForeignKey(AvailabilityResponse, related_name='entries', on_delete=models.CASCADE)
     time_option = models.ForeignKey(TimeOption, related_name='entries', on_delete=models.CASCADE)
     
