@@ -1,3 +1,6 @@
-from django.shortcuts import render
+from django.http import HttpResponse, JsonResponse
 
-# Create your views here.
+def home(request):
+    return HttpResponse("Welcome to the API. Visit /admin/ or /api/")
+def api_root(request):
+    return JsonResponse({"message": "Welcome to the Meetings API!"})
