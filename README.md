@@ -1,69 +1,62 @@
-# React + TypeScript + Vite
+## Codebase Description
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**Backend:** Django (Python) REST API, located in `backend/`
 
-Currently, two official plugins are available:
+- Uses Django REST Framework
+- Default database: SQLite (`db.sqlite3`)
+- Main entry: `manage.py`
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+**Frontend:** React + TypeScript + Vite, located in `frontend/`
 
-## Expanding the ESLint configuration
+- Uses Vite for development/build
+- Main entry: `frontend/src/`
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+---
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## How to Run
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+### Prerequisites
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+- Python 3.8+ (for backend)
+- Node.js 18+ and npm (for frontend)
+
+### Backend (Django API)
+
+```sh
+cd backend
+python3 -m venv .venv
+source .venv/bin/activate
+pip install django djangorestframework
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### To run the server after a new change is made and packages are installed:
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
 ```
+This ensures your database schema is up to date with your code changes.
+```
+
+```sh
+python3 manage.py makemigrations
+python3 manage.py migrate
+python3 manage.py runserver
+```
+
+The API will be available at http://127.0.0.1:8000/
+
+### Frontend (React App)
+
+```sh
+cd frontend
+npm i
+npm i bootstrap
+```
+
+```
+To run your react application:
+```
+
+```sh
+npm run dev
+```
+
+The app will be available at the URL shown in the terminal.
