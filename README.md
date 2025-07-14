@@ -58,5 +58,3 @@ To run your react application:
 ```sh
 npm run dev
 ```
-
-The app will be available at the URL shown in the terminal.
