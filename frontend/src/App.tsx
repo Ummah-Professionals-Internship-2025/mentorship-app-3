@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Alert from "./components/Alert";
 import Button from "./components/Button";
 import SearchBar from "./components/SearchBar";
@@ -24,6 +24,16 @@ function App() {
   };
 
   const [alertVisible, setAlertVisibility] = useState(false);
+  // --- API fetch demo ---
+  const [apiMessage, setApiMessage] = useState<string | null>(null);
+
+  useEffect(() => {
+    fetch(import.meta.env.VITE_API_URL, { credentials: "include" })
+      .then((res) => res.json())
+      .then((data) => setApiMessage(data.message))
+      .catch((err) => setApiMessage("Error: " + err));
+  }, []);
+  // ----------------------
 
   return (
     <div>
@@ -47,6 +57,11 @@ function App() {
         <Button color="danger" onClick={() => setAlertVisibility(true)}>
           Click me!
         </Button>
+      </div>
+      {/* Show API response */}
+      <div style={{ marginTop: "2rem" }}>
+        <h3>Backend API Test</h3>
+        <pre>{apiMessage ? apiMessage : "Loading..."}</pre>
       </div>
     </div>
   );
