@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/4.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
-
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -125,9 +125,17 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-CORS_ALLOWED_ORIGINS = [
-    "http://localhost:5173",
-]
+#for now it will run on localhost:5173
+# when we deploy it will run on the production domain
+# we can do this by adding this to the env file when we're ready 
+# to set production domain : DJANGO_ENV=production
+if os.getenv("DJANGO_ENV") == "production":
+    CORS_ALLOWED_ORIGINS = [
+        "https://your-frontend-domain.com",
+    ]
+else:
+    CORS_ALLOWED_ORIGINS = [
+        "http://localhost:5173",
+    ]
 
 CORS_ALLOW_CREDENTIALS = True
