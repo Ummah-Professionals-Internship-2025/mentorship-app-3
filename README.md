@@ -1,62 +1,149 @@
-## Codebase Description
+# Fullstack React + Django Application
 
-**Backend:** Django (Python) REST API, located in `backend/`
+This is a fullstack web application with:
 
-- Uses Django REST Framework
-- Default database: SQLite (`db.sqlite3`)
-- Main entry: `manage.py`
+- **Backend**: Django REST API (`backend/`)
+- **Frontend**: React + TypeScript + Vite (`frontend/`)
 
-**Frontend:** React + TypeScript + Vite, located in `frontend/`
+---
 
-- Uses Vite for development/build
-- Main entry: `frontend/src/`
+## Prerequisites
+
+### Backend
+
+- Python 3.8+
+- pip
+
+### Frontend
+
+- Node.js 18+
+- npm
 
 ---
 
 ## How to Run
 
-### Prerequisites
-
-- Python 3.8+ (for backend)
-- Node.js 18+ and npm (for frontend)
-
 ### Backend (Django API)
 
-```sh
-cd backend
-python3 -m venv .venv
-source .venv/bin/activate
-pip install django djangorestframework
-```
+#### macOS / Linux
 
-### To run the server after a new change is made and packages are installed:
+1. Navigate to the backend directory:
 
-```
-This ensures your database schema is up to date with your code changes.
-```
+   ```bash
+   cd backend
+   ```
 
-```sh
-python3 manage.py makemigrations
-python3 manage.py migrate
-python3 manage.py runserver
-```
+2. Create and activate a virtual environment:
 
-The API will be available at http://127.0.0.1:8000/
+   ```bash
+   python3 -m venv .venv
+   source .venv/bin/activate
+   ```
 
-### Frontend (React App)
+3. Install dependencies:
 
-```sh
-cd frontend
-npm i
-npm i bootstrap
-```
+   ```bash
+   pip install django djangorestframework django-cors-headers
+   ```
 
-```
-To run your react application:
-```
+4. To run the server:
 
-```sh
-npm run dev
-```
+- If no changes have been made:
 
-The app will be available at the URL shown in the terminal.
+  ```bash
+  python manage.py runserver
+  ```
+
+- If changes have been made to models or the database:
+
+  ```bash
+  python manage.py makemigrations
+  python manage.py migrate
+  python manage.py runserver
+  ```
+
+The server will run at: http://127.0.0.1:8000/
+
+---
+
+#### Windows (VS Code Terminal)
+
+1. Open the integrated terminal in VS Code and navigate to the backend directory:
+
+   ```bash
+   cd backend
+   ```
+
+2. Create and activate a virtual environment:
+
+   ```bash
+   python -m venv .venv
+   .venv\Scripts\activate
+   ```
+
+3. Install dependencies:
+
+   ```bash
+   pip install django djangorestframework django-cors-headers
+   ```
+
+4. To run the server:
+
+- If no changes have been made:
+
+  ```bash
+  python manage.py runserver
+  ```
+
+- If changes have been made to models or the database:
+
+  ```bash
+  python manage.py makemigrations
+  python manage.py migrate
+  python manage.py runserver
+  ```
+
+The server will run at: http://127.0.0.1:8000/
+
+---
+
+### Frontend (React + Vite)
+
+#### macOS / Linux / Windows
+
+1. Navigate to the frontend directory:
+
+   ```bash
+   cd frontend
+   ```
+
+2. Install dependencies:
+
+   ```bash
+   npm install
+   npm install bootstrap
+   ```
+
+3. Start the development server:
+
+   ```bash
+   npm run dev
+   ```
+
+The app will be available at the URL shown in the terminal (usually http://localhost:5173/).
+
+---
+
+## Quick Reference
+
+| Task                          | macOS / Linux                                                                                   | Windows (VS Code Terminal) |
+| ----------------------------- | ----------------------------------------------------------------------------------------------- | -------------------------- |
+| Create virtual environment    | `python3 -m venv .venv`                                                                         | `python -m venv .venv`     |
+| Activate virtual environment  | `source .venv/bin/activate`                                                                     | `.venv\Scripts\activate`   |
+| Install backend dependencies  | `pip install django djangorestframework`                                                        | Same                       |
+| Run backend (no changes)      | `python manage.py runserver`                                                                    | Same                       |
+| Run backend (with changes)    | `python manage.py makemigrations`<br>`python manage.py migrate`<br>`python manage.py runserver` | Same                       |
+| Install frontend dependencies | `npm install`<br>`npm install bootstrap`                                                        | Same                       |
+| Start frontend server         | `npm run dev`                                                                                   | Same                       |
+
+---
