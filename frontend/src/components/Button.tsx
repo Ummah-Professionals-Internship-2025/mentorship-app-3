@@ -4,12 +4,8 @@ interface Props {
   onClick: () => void;
   type?: "button" | "submit" | "reset"; // optional prop for button type
 }
-const Button = ({ children, onClick, color = "danger" }: Props) => {
-  return (
-    <button className={"btn btn-" + color} onClick={onClick}>
-      {children}
-    </button>
-  );
+const Button = ({ children, color = "danger" }: Props) => {
+  return <button className={"btn btn-" + color}>{children}</button>;
 };
 
 export default Button;

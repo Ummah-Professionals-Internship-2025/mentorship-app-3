@@ -1,3 +1,4 @@
+/* 
 import { useState } from "react";
 interface Props {
   onSearch: (query: string) => void;
@@ -35,3 +36,4 @@ const SearchBar = ({ onSearch }: Props) => {
 };
 
 export default SearchBar;
+*/
