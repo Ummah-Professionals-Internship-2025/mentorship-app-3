@@ -10,6 +10,41 @@ function App() {
   const allItems = ["New York", "San Francisco", "Tokyo", "London", "Paris"];
   const [filteredItems, setFilteredItems] = useState(allItems);
 
+  // --- Meeting Form State ---
+  const [meetingTitle, setMeetingTitle] = useState("");
+  const [meetingDate, setMeetingDate] = useState("");
+  const [meetingDesc, setMeetingDesc] = useState("");
+  const [meetingStatus, setMeetingStatus] = useState<string | null>(null);
+
+  const handleMeetingSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setMeetingStatus(null);
+
+    try {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/meetings`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        credentials: "include",
+        body: JSON.stringify({
+          title: meetingTitle,
+          date: meetingDate,
+          description: meetingDesc,
+        }),
+      });
+      if (res.ok) {
+        setMeetingStatus("Meeting created successfully!");
+        setMeetingTitle("");
+        setMeetingDate("");
+        setMeetingDesc("");
+      } else {
+        const err = await res.text();
+        setMeetingStatus("Error: " + err);
+      }
+    } catch (err) {
+      setMeetingStatus("Error: " + err);
+    }
+  };
+  // --- End Meeting Form State ---
   // Function for checking if the item is in the list from the navbar
 
   const handleSelectItem = (item: string) => {
@@ -58,6 +93,56 @@ function App() {
           Click me!
         </Button>
       </div>
+
+      {/* Meeting Form */}
+      <div style={{ marginTop: "2rem" }}>
+        <h3>Create Meeting</h3>
+        <form onSubmit={handleMeetingSubmit}>
+          <div>
+            <label>
+              Title:
+              <input
+                type="text"
+                value={meetingTitle}
+                onChange={(e) => setMeetingTitle(e.target.value)}
+                required
+              />
+            </label>
+          </div>
+          <div>
+            <label>
+              Date:
+              <input
+                type="date"
+                value={meetingDate}
+                onChange={(e) => setMeetingDate(e.target.value)}
+                required
+              />
+            </label>
+          </div>
+          <div>
+            <label>
+              Description:
+              <textarea
+                value={meetingDesc}
+                onChange={(e) => setMeetingDesc(e.target.value)}
+                required
+              />
+            </label>
+          </div>
+          <Button
+            color="primary"
+            type="submit"
+            onClick={() => setAlertVisibility(true)}
+          >
+            Submit Meeting
+          </Button>
+        </form>
+        {meetingStatus && (
+          <Alert onClose={() => setMeetingStatus(null)}>{meetingStatus}</Alert>
+        )}
+      </div>
+
       {/* Show API response */}
       <div style={{ marginTop: "2rem" }}>
         <h3>Backend API Test</h3>
